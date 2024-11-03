@@ -10,9 +10,10 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     MyString stringExample("пользователь1!!!");
-    cout << "лен = " << stringExample.MyStrLen() << endl;
+    cout << "длина = " << stringExample.MyStrLen() << endl;
     stringExample.Print();
 
     stringExample.Input();

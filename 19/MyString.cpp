@@ -13,10 +13,12 @@ using namespace std;
 int MyString::countLiveObj = 0;
 int MyString::countCreatedObj = 0;
 
-MyString::MyString() {
+MyString::MyString()
+{
     length = 80;
     str = new char[length + 1];
-    for (size_t i = 0; i <= length; ++i) {
+    for (size_t i = 0; i <= length; ++i)
+    {
         str[i] = '\0';
     }
 
@@ -24,11 +26,13 @@ MyString::MyString() {
     countLiveObj++;
 }
 
-MyString::MyString(int size) {
+MyString::MyString(int size)
+{
     if (size < 0) size = 0;
     length = size;
     str = new char[length + 1];
-    for (int i = 0U; i <= length; ++i) { //0U unsigned
+    for (int i = 0U; i <= length; ++i)  //0U unsigned
+    {
         str[i] = '\0';
     }
 
@@ -36,13 +40,16 @@ MyString::MyString(int size) {
     countLiveObj++;
 }
 
-MyString::MyString(const char* initStr) {
-    if (initStr == nullptr) {
+MyString::MyString(const char* initStr)
+{
+    if (initStr == nullptr)
+    {
         length = 0;
         str = new char[1];
         str[0] = '\0';
     }
-    else {
+    else
+    {
         length = strlen(initStr);
         str = new char[length + 1];
         strcpy(str, initStr);
@@ -52,7 +59,8 @@ MyString::MyString(const char* initStr) {
     countLiveObj++;
 }
 
-MyString::MyString(const MyString& other) {
+MyString::MyString(const MyString& other)
+{
     length = other.length;
     str = new char[length + 1];
     strcpy(str, other.str);
@@ -61,14 +69,16 @@ MyString::MyString(const MyString& other) {
     countLiveObj++;
 }
 
-MyString::MyString(MyString&& obj) {
+MyString::MyString(MyString&& obj)
+{
     str = obj.str;
     length = obj.length;
     obj.str = nullptr;
     obj.length = 0;
 }
 
-MyString& MyString::operator=(MyString&& obj) {
+MyString& MyString::operator=(MyString&& obj)
+{
     if (str != nullptr) delete[] str;
 
     str = obj.str;
@@ -79,11 +89,13 @@ MyString& MyString::operator=(MyString&& obj) {
     return *this;
 }
 
-MyString::MyString(initializer_list<char> a) {
+MyString::MyString(initializer_list<char> a)
+{
     length = a.size();
     str = new char[length + 1];
 
-    for (auto x = a.begin(); x != a.end(); ++x) {
+    for (auto x = a.begin(); x != a.end(); ++x)
+    {
         *str = *x;
         str++;
     }
@@ -93,33 +105,39 @@ MyString::MyString(initializer_list<char> a) {
 }
 
 
-MyString::~MyString() {
+MyString::~MyString()
+{
     delete[] str;
     countLiveObj--;
 }
 
 
-void MyString::MyStrcpy(MyString& obj) {
+void MyString::MyStrcpy(MyString& obj)
+{
     if (str == nullptr) return;
     delete[] obj.str;
 
     obj.length = length;
     obj.str = new char[length + 1];
 
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < length; i++)
+    {
         obj.str[i] = str[i];
     }
 
     obj.str[length] = '\0';
 }
 
-bool MyString::MyStrStr(const char* substr) {
+bool MyString::MyStrStr(const char* substr)
+{
     if (str == nullptr or substr == nullptr) return false;
 
-    for (int i = 0; str[i] != '\0'; i++) {
+    for (int i = 0; str[i] != '\0'; i++)
+    {
         int j = 0;
 
-        while (substr[j] != '\0' and str[i + j] != '\0' and str[i + j] == substr[j]) {
+        while (substr[j] != '\0' and str[i + j] != '\0' and str[i + j] == substr[j])
+        {
             j++;
         }
 
@@ -129,7 +147,8 @@ bool MyString::MyStrStr(const char* substr) {
     return false;
 }
 
-int MyString::MyChr(char c) {
+int MyString::MyChr(char c)
+{
     if (str == nullptr) return -1;
 
     for (int i = 0; str[i] != '\0'; i++) {
@@ -141,19 +160,22 @@ int MyString::MyChr(char c) {
     return -1;
 }
 
-int MyString::MyStrLen() {
+int MyString::MyStrLen()
+{
     if (str == nullptr) return 0;
 
     int length = 0;
 
-    while (str[length] != '\0') {
+    while (str[length] != '\0')
+    {
         length++;
     }
 
     return length;
 }
 
-void MyString::MyStrCat(MyString& b) {
+void MyString::MyStrCat(MyString& b)
+{
     if (str == nullptr) return;
     if (b.str == nullptr) return;
 
@@ -161,11 +183,13 @@ void MyString::MyStrCat(MyString& b) {
     char* newStr = new char[newLength + 1];
 
     int i = 0;
-    for (; str[i] != '\0'; i++) {
+    for (; str[i] != '\0'; i++)
+    {
         newStr[i] = str[i];
     }
 
-    for (int j = 0; b.str[j] != '\0'; j++, i++) {
+    for (int j = 0; b.str[j] != '\0'; j++, i++)
+    {
         newStr[i] = b.str[j];
     }
 
@@ -175,12 +199,14 @@ void MyString::MyStrCat(MyString& b) {
     length = newLength;
 }
 
-void MyString::MyDelChr(char c) {
+void MyString::MyDelChr(char c)
+{
     if (str == nullptr) return;
 
     int j = 0;
 
-    for (int i = 0; str[i] != '\0'; i++) {
+    for (int i = 0; str[i] != '\0'; i++)
+    {
         if (str[i] != c) {
             str[j++] = str[i];
         }
@@ -190,13 +216,15 @@ void MyString::MyDelChr(char c) {
     length = j;
 }
 
-int MyString::MyStrCmp(MyString& b) {
+int MyString::MyStrCmp(MyString& b)
+{
     if (str == nullptr && b.str == nullptr) return 0;
     if (str == nullptr) return -1;
     if (b.str == nullptr) return 1;
 
     int i = 0;
-    while (str[i] != '\0' && b.str[i] != '\0') {
+    while (str[i] != '\0' && b.str[i] != '\0')
+    {
         if (str[i] < b.str[i]) return -1;
         if (str[i] > b.str[i]) return 1;
         i++;
@@ -207,7 +235,8 @@ int MyString::MyStrCmp(MyString& b) {
     return 1;
 }
 
-MyString& MyString::operator+=(const char* appendStr) {
+MyString& MyString::operator+=(const char* appendStr)
+{
     if (appendStr == nullptr) return *this;
 
     MyString temp(appendStr);
@@ -217,7 +246,8 @@ MyString& MyString::operator+=(const char* appendStr) {
     return *this;
 }
 
-MyString operator+(const char* prefixStr, const MyString& myStr) {
+MyString operator+(const char* prefixStr, const MyString& myStr)
+{
     if (prefixStr == nullptr) return myStr;
 
     MyString result(prefixStr);
@@ -229,16 +259,20 @@ MyString operator+(const char* prefixStr, const MyString& myStr) {
 }
 
 
-void MyString::Print() {
-    if (str == nullptr) {
+void MyString::Print()
+{
+    if (str == nullptr)
+    {
         cout << "(null)" << endl;
     }
-    else {
+    else
+    {
         cout << str << endl;
     }
 }
 
-void MyString::Input() {
+void MyString::Input()
+{
     char buffer[1024];
     cout << "напишите строку: ";
 
@@ -261,15 +295,18 @@ void MyString::Save(char* filename)
     file.close();
 }
 
-void MyString::GetCountLiveObj() {
+void MyString::GetCountLiveObj()
+{
     cout << "Количество живых объектов: " << countLiveObj << endl;
 }
 
-void MyString::GetCountCreatedObj() {
+void MyString::GetCountCreatedObj()
+{
     cout << "Общее количество созданных объектов: " << countCreatedObj << endl;
 }
 
-MyString MyString::operator=(const MyString& obj) {
+MyString MyString::operator=(const MyString& obj)
+{
     if (this == &obj) return *this;
     delete[] str;
 
@@ -280,20 +317,24 @@ MyString MyString::operator=(const MyString& obj) {
     return *this;
 }
 
-MyString MyString::operator[](int index) {
+MyString MyString::operator[](int index)
+{
     return str[index];
 }
 
-void MyString::operator()() {
+void MyString::operator()()
+{
     Print();
 }
 
-ostream& operator<<(ostream& os, MyString obj) {
+ostream& operator<<(ostream& os, MyString obj)
+{
     obj.Print();
     return os;
 }
 
-istream& operator>>(istream& is, MyString& obj) {
+istream& operator>>(istream& is, MyString& obj)
+{
     obj.Input();
     return is;
 }
