@@ -5,14 +5,6 @@
 //  Created by Егор Джемлиханов on 01.11.2024.
 //
 
-//#ifndef MyString_hpp
-//#define MyString_hpp
-//
-//#include <stdio.h>
-//
-//#endif /* MyString_hpp */
-
-
 #pragma once
 #include<iostream>
 #include<fstream>
